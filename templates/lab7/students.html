@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Event Students{% endblock %}
+{% block nav_students %}active{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Selected Event Students <span class="muted">(ordered list)</span></h1>
+
+  {# Task 7.3: search form (keeps the current sort) #}
+  <form class="search" method="get">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search name, roll no, branch, event...">
+    {% if sort %}<input type="hidden" name="sort" value="{{ sort }}"><input type="hidden" name="dir" value="{{ direction }}">{% endif %}
+    <button type="submit">Search</button>
+  </form>
+
+  {# Task 7.1: fallback when the list is empty #}
+  {% if students %}
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          {# Task 7.2: header links toggle sort field and direction (keeps the search) #}
+          <th><a href="?sort=name&dir={% if sort == 'name' %}{{ next_dir }}{% else %}asc{% endif %}&q={{ query|urlencode }}">Name{% if sort == 'name' %} {% if direction == 'asc' %}&#9650;{% else %}&#9660;{% endif %}{% endif %}</a></th>
+          <th><a href="?sort=roll_no&dir={% if sort == 'roll_no' %}{{ next_dir }}{% else %}asc{% endif %}&q={{ query|urlencode }}">Roll No{% if sort == 'roll_no' %} {% if direction == 'asc' %}&#9650;{% else %}&#9660;{% endif %}{% endif %}</a></th>
+          <th><a href="?sort=branch&dir={% if sort == 'branch' %}{{ next_dir }}{% else %}asc{% endif %}&q={{ query|urlencode }}">Branch{% if sort == 'branch' %} {% if direction == 'asc' %}&#9650;{% else %}&#9660;{% endif %}{% endif %}</a></th>
+          <th><a href="?sort=event&dir={% if sort == 'event' %}{{ next_dir }}{% else %}asc{% endif %}&q={{ query|urlencode }}">Event{% if sort == 'event' %} {% if direction == 'asc' %}&#9650;{% else %}&#9660;{% endif %}{% endif %}</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in students %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ s.name }}</td>
+          <td>{{ s.roll_no }}</td>
+          <td>{{ s.branch }}</td>
+          <td>{{ s.event }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="muted">Showing {{ students|length }} of {{ total }} students.</p>
+  {% else %}
+    <div class="alert alert-warning">
+      {% if query %}No students match "{{ query }}".{% else %}No students have been selected yet.{% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

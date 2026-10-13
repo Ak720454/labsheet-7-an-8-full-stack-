@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Fruits{% endblock %}
+{% block nav_fruits %}active{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Fruits <span class="muted">(unordered collection)</span></h1>
+
+  {# Task 7.3: search form #}
+  <form class="search" method="get">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search fruits...">
+    <button type="submit">Search</button>
+  </form>
+
+  {# Task 7.1: fallback when the collection is empty #}
+  {% if fruits %}
+    <ul class="chips">
+      {% for fruit in fruits %}<li>{{ fruit }}</li>{% endfor %}
+    </ul>
+  {% else %}
+    <div class="alert alert-warning">
+      {% if query %}No fruits match "{{ query }}".{% else %}No fruits available right now.{% endif %}
+    </div>
+  {% endif %}
+  <p class="muted">Tip: add <code>?empty=1</code> to the URL to see the empty-state alert.</p>
+</div>
+{% endblock %}

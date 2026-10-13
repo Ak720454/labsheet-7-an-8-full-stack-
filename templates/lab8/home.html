@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block nav_home %}active{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Welcome</h1>
+  <p>This project covers <strong>Lab Sheet 7</strong> (template conditionals, sorting, search) and
+     <strong>Lab Sheet 8</strong> (template inheritance, active navigation, messages, Contact form).</p>
+  <p>
+    <a class="btn" href="{% url 'lab7:fruits' %}">Fruits</a>
+    <a class="btn" href="{% url 'lab7:students' %}">Event Students</a>
+    <a class="btn" href="{% url 'lab8:contact' %}">Contact Us</a>
+  </p>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Django Labs{% endblock %} | BTCS303P</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <header class="site">
+    <div class="container">
+      <span class="brand">Django Labs</span>
+      <nav>
+        {# Task 8.1: each link has its own block; a child page overrides ONLY its own block with the word "active" #}
+        <a href="{% url 'lab8:home' %}"    class="{% block nav_home %}{% endblock %}">Home</a>
+        <a href="{% url 'lab8:about' %}"   class="{% block nav_about %}{% endblock %}">About Us</a>
+        <a href="{% url 'lab8:contact' %}" class="{% block nav_contact %}{% endblock %}">Contact Us</a>
+        <a href="{% url 'lab7:fruits' %}"   class="{% block nav_fruits %}{% endblock %}">Fruits</a>
+        <a href="{% url 'lab7:students' %}" class="{% block nav_students %}{% endblock %}">Students</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {# Task 8.2: persistent notification box, inherited by every child page #}
+    {% block messages %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>BTCS303P &middot; Lab Sheets 7 &amp; 8</footer>
+</body>
+</html>

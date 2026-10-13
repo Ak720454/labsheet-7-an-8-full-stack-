@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Contact Us{% endblock %}
+{% block nav_contact %}active{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Contact Us</h1>
+  <p class="muted">Your feedback is validated on the server and written to the server log.</p>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="field">
+        {{ field.label_tag }}
+        {{ field }}
+        {{ field.errors }}
+      </div>
+    {% endfor %}
+    <button type="submit">Send feedback</button>
+  </form>
+</div>
+{% endblock %}

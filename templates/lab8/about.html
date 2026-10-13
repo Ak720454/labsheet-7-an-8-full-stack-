@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}About Us{% endblock %}
+{% block nav_about %}active{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>About Us</h1>
+  <p>Every page here extends <code>base.html</code>, which holds the shared menu and message box.
+     Each child only overrides the blocks it needs.</p>
+  <p class="muted">Notice the highlighted "About Us" link: this page overrides <code>nav_about</code> with <code>active</code>.</p>
+</div>
+{% endblock %}
